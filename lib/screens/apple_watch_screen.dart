@@ -22,7 +22,7 @@ class _AppleWatchScreenState extends State<AppleWatchScreen> {
           // 커스텀 페인터를 렌더링하고 크기를 정한다.
           // 그림 그릴 캔버스 영역을 만드는 것.
           painter: AppleWatchPainter(),
-          size: Size(400, 400),
+          size: const Size(400, 400),
         ),
       ),
     );
@@ -33,7 +33,27 @@ class AppleWatchPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     // TODO: implement paint
-    canvas.drawRect(rect, paint)
+
+    final rect = Rect.fromLTWH(
+      0,
+      0,
+      size.width,
+      size.height,
+    );
+
+    final paint = Paint()..color = Colors.blue;
+    canvas.drawRect(rect, paint);
+
+    final circlePaint = Paint()
+      ..color = Colors.red
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 20;
+
+    canvas.drawCircle(
+      Offset(size.width / 2, size.width / 2),
+      size.width / 2,
+      circlePaint,
+    );
   }
 
   @override
