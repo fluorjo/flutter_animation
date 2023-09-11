@@ -2,7 +2,6 @@ import 'package:animation/screens/apple_watch_screen.dart';
 import 'package:animation/screens/implicit_animations_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:animation/screens/explicit_animations_screen.dart';
-import 'package:animation/screens/swiping_cards_screen.dart';
 class MenuScreen extends StatelessWidget {
   const MenuScreen({super.key});
 
@@ -55,7 +54,7 @@ class MenuScreen extends StatelessWidget {
               onPressed: () {
                 _goToPage(
                   context,
-                  const SwipingCardsScreen(),
+                  const AppleWatchScreen(),
                 );
               },
               child: const Text('Swiping Cards'),
