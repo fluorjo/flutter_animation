@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 class AppleWatchScreen extends StatefulWidget {
@@ -39,20 +41,21 @@ class AppleWatchPainter extends CustomPainter {
     // red
 
     final redCirclePaint = Paint()
-      ..color = Colors.red.shade300
+      ..color = Colors.red.shade400.withOpacity(0.25)
       ..style = PaintingStyle.stroke
       ..strokeWidth = 25;
 
+    final redCircleRadius = (size.width / 2) * 0.9;
     canvas.drawCircle(
       center,
-      (size.width / 2) * 0.9,
+      redCircleRadius,
       redCirclePaint,
     );
 
-        // green
+    // green
 
     final greenCirclePaint = Paint()
-      ..color = Colors.green.shade300
+      ..color = Colors.green.shade400.withOpacity(0.25)
       ..style = PaintingStyle.stroke
       ..strokeWidth = 25;
 
@@ -61,10 +64,10 @@ class AppleWatchPainter extends CustomPainter {
       (size.width / 2) * 0.76,
       greenCirclePaint,
     );
-        // blue
+    // blue
 
     final blueCirclePaint = Paint()
-      ..color = Colors.blue.shade300
+      ..color = Colors.blue.shade400.withOpacity(0.25)
       ..style = PaintingStyle.stroke
       ..strokeWidth = 25;
 
@@ -72,6 +75,27 @@ class AppleWatchPainter extends CustomPainter {
       center,
       (size.width / 2) * 0.62,
       blueCirclePaint,
+    );
+
+    //red arc
+
+    final reArcRect = Rect.fromCircle(
+      center: center,
+      radius: redCircleRadius,
+    );
+
+    final redArcPaint = Paint()
+      ..color = Colors.red.shade400
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 25
+      ..strokeCap = StrokeCap.round;
+
+    canvas.drawArc(
+      reArcRect,
+      -0.5 * pi,
+      1.5 * pi,
+      false,
+      redArcPaint,
     );
   }
 
