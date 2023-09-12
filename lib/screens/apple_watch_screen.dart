@@ -32,27 +32,46 @@ class _AppleWatchScreenState extends State<AppleWatchScreen> {
 class AppleWatchPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
-    // TODO: implement paint
-
-    final rect = Rect.fromLTWH(
-      0,
-      0,
-      size.width,
-      size.height,
+    final center = Offset(
+      size.width / 2,
+      size.width / 2,
     );
+    // red
 
-    final paint = Paint()..color = Colors.blue;
-    canvas.drawRect(rect, paint);
-
-    final circlePaint = Paint()
-      ..color = Colors.red
+    final redCirclePaint = Paint()
+      ..color = Colors.red.shade300
       ..style = PaintingStyle.stroke
-      ..strokeWidth = 20;
+      ..strokeWidth = 25;
 
     canvas.drawCircle(
-      Offset(size.width / 2, size.width / 2),
-      size.width / 2,
-      circlePaint,
+      center,
+      (size.width / 2) * 0.9,
+      redCirclePaint,
+    );
+
+        // green
+
+    final greenCirclePaint = Paint()
+      ..color = Colors.green.shade300
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 25;
+
+    canvas.drawCircle(
+      center,
+      (size.width / 2) * 0.76,
+      greenCirclePaint,
+    );
+        // blue
+
+    final blueCirclePaint = Paint()
+      ..color = Colors.blue.shade300
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 25;
+
+    canvas.drawCircle(
+      center,
+      (size.width / 2) * 0.62,
+      blueCirclePaint,
     );
   }
 
