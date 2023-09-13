@@ -40,6 +40,8 @@ class AppleWatchPainter extends CustomPainter {
     );
     // red
 
+    const startingAngle = -0.5 * pi;
+
     final redCirclePaint = Paint()
       ..color = Colors.red.shade400.withOpacity(0.25)
       ..style = PaintingStyle.stroke
@@ -92,7 +94,7 @@ class AppleWatchPainter extends CustomPainter {
 
     canvas.drawArc(
       reArcRect,
-      -0.5 * pi,
+      startingAngle,
       1.5 * pi,
       false,
       redArcPaint,
