@@ -9,7 +9,21 @@ class AppleWatchScreen extends StatefulWidget {
   State<AppleWatchScreen> createState() => _AppleWatchScreenState();
 }
 
-class _AppleWatchScreenState extends State<AppleWatchScreen> {
+class _AppleWatchScreenState extends State<AppleWatchScreen>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _animationController = AnimationController(
+    vsync: this,
+    duration: const Duration(
+      seconds: 5,
+    ),
+    lowerBound: 0.005,
+    upperBound: 2.0,
+  );
+
+  void _animateValues() {
+    _animationController.forward();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,11 +34,24 @@ class _AppleWatchScreenState extends State<AppleWatchScreen> {
         title: const Text("Apple Watch"),
       ),
       body: Center(
-        child: CustomPaint(
-          // 커스텀 페인터를 렌더링하고 크기를 정한다.
-          // 그림 그릴 캔버스 영역을 만드는 것.
-          painter: AppleWatchPainter(),
-          size: const Size(400, 400),
+        child: AnimatedBuilder(
+          animation: _animationController,
+          builder: (context, child) {
+            return CustomPaint(
+              // 커스텀 페인터를 렌더링하고 크기를 정한다.
+              // 그림 그릴 캔버스 영역을 만드는 것.
+              painter: AppleWatchPainter(
+                progress: _animationController.value,
+              ),
+              size: const Size(400, 400),
+            );
+          },
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _animateValues,
+        child: const Icon(
+          Icons.refresh,
         ),
       ),
     );
@@ -32,6 +59,12 @@ class _AppleWatchScreenState extends State<AppleWatchScreen> {
 }
 
 class AppleWatchPainter extends CustomPainter {
+  final double progress;
+
+  AppleWatchPainter({
+    required this.progress,
+  });
+
   @override
   void paint(Canvas canvas, Size size) {
     final center = Offset(
@@ -64,7 +97,6 @@ class AppleWatchPainter extends CustomPainter {
 
     final greenCircleRadius = (size.width / 2) * 0.76;
 
-
     canvas.drawCircle(
       center,
       greenCircleRadius,
@@ -76,7 +108,7 @@ class AppleWatchPainter extends CustomPainter {
       ..color = Colors.blue.shade400.withOpacity(0.25)
       ..style = PaintingStyle.stroke
       ..strokeWidth = 25;
-      
+
     final blueCircleRadius = (size.width / 2) * 0.62;
 
     canvas.drawCircle(
@@ -101,7 +133,7 @@ class AppleWatchPainter extends CustomPainter {
     canvas.drawArc(
       redArcRect,
       startingAngle,
-      1.5 * pi,
+      progress * pi,
       false,
       redArcPaint,
     );
@@ -122,7 +154,7 @@ class AppleWatchPainter extends CustomPainter {
     canvas.drawArc(
       greenArcRect,
       startingAngle,
-      1.5 * pi,
+      progress * pi,
       false,
       greenArcPaint,
     );
@@ -143,16 +175,16 @@ class AppleWatchPainter extends CustomPainter {
     canvas.drawArc(
       blueArcRect,
       startingAngle,
-      1.5 * pi,
+      progress * pi,
       false,
       blueArcPaint,
     );
   }
 
   @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) {
+  bool shouldRepaint(covariant AppleWatchPainter oldDelegate) {
     // TODO: implement shouldRepaint
     //true 또는 false를 반환해야 하는 메서드
-    return false;
+    return oldDelegate.progress != progress;
   }
 }
