@@ -48,6 +48,7 @@ class AppleWatchPainter extends CustomPainter {
       ..strokeWidth = 25;
 
     final redCircleRadius = (size.width / 2) * 0.9;
+
     canvas.drawCircle(
       center,
       redCircleRadius,
@@ -61,9 +62,12 @@ class AppleWatchPainter extends CustomPainter {
       ..style = PaintingStyle.stroke
       ..strokeWidth = 25;
 
+    final greenCircleRadius = (size.width / 2) * 0.76;
+
+
     canvas.drawCircle(
       center,
-      (size.width / 2) * 0.76,
+      greenCircleRadius,
       greenCirclePaint,
     );
     // blue
@@ -72,16 +76,18 @@ class AppleWatchPainter extends CustomPainter {
       ..color = Colors.blue.shade400.withOpacity(0.25)
       ..style = PaintingStyle.stroke
       ..strokeWidth = 25;
+      
+    final blueCircleRadius = (size.width / 2) * 0.62;
 
     canvas.drawCircle(
       center,
-      (size.width / 2) * 0.62,
+      blueCircleRadius,
       blueCirclePaint,
     );
 
     //red arc
 
-    final reArcRect = Rect.fromCircle(
+    final redArcRect = Rect.fromCircle(
       center: center,
       radius: redCircleRadius,
     );
@@ -93,11 +99,53 @@ class AppleWatchPainter extends CustomPainter {
       ..strokeCap = StrokeCap.round;
 
     canvas.drawArc(
-      reArcRect,
+      redArcRect,
       startingAngle,
       1.5 * pi,
       false,
       redArcPaint,
+    );
+
+    //green arc
+
+    final greenArcRect = Rect.fromCircle(
+      center: center,
+      radius: greenCircleRadius,
+    );
+
+    final greenArcPaint = Paint()
+      ..color = Colors.green.shade400
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 25
+      ..strokeCap = StrokeCap.round;
+
+    canvas.drawArc(
+      greenArcRect,
+      startingAngle,
+      1.5 * pi,
+      false,
+      greenArcPaint,
+    );
+
+    //blue arc
+
+    final blueArcRect = Rect.fromCircle(
+      center: center,
+      radius: blueCircleRadius,
+    );
+
+    final blueArcPaint = Paint()
+      ..color = Colors.blue.shade400
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 25
+      ..strokeCap = StrokeCap.round;
+
+    canvas.drawArc(
+      blueArcRect,
+      startingAngle,
+      1.5 * pi,
+      false,
+      blueArcPaint,
     );
   }
 
